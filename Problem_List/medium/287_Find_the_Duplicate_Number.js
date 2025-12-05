@@ -9,14 +9,24 @@
  */
 
 var findDuplicate = function (nums) {
-    let numCount = {}
-    let rep;
-    for (let num of nums) {
-        numCount[num] = numCount[num] ? numCount[num] + 1 : 1;
-        if (numCount[num] >= 2) {
-            rep = num;
-            break;
-        }
+    let slow = nums[0]
+    let fast = nums[nums[0]]
+
+    // Phase One: Find the point of intersection
+    while (slow !== fast) {
+        slow = nums[slow]
+        fast = nums[nums[fast]]
     }
-    return rep;
+
+    // Phase Two: Find the entrance point
+    slow = 0
+    while (slow !== fast) {
+        slow = nums[slow]
+        fast = nums[fast]
+    }
+
+    return slow
 };
+
+let nums = [3,1,3,4,2]
+console.log(findDuplicate(nums))

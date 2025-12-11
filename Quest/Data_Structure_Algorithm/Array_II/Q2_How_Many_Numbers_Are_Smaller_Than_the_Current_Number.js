@@ -7,15 +7,27 @@
  * @param {number[]} nums
  * @return {number[]}
  */
-var smallerNumbersThanCurrent = function(nums) {
+
+var smallerNumbersThanCurrent = function (nums) {
+    let count = [];
     let result = [];
-    for (let i = 0; i < nums.length; i++) {
-        let count = 0;
-        for (let j = 0; j < nums.length; j++) {
-            if (nums[j] < nums[i]) count++
-        }
-        result[i] = count
+
+    for (let num of nums) {
+        count[num] = count[num] ? count[num] + 1 : 1 
     }
 
-    return result;
-};
+    for (let i = 1; i < 101; i++) {
+        count[i] = count[i] || 0;
+        count[i - 1] = count[i -1] || 0
+        count[i] += count[i -1]
+    }
+
+    for (let i = 0; i < nums.length; i++) {
+        if (nums[i] === 0) result[i] = 0
+        else result[i] = count[nums[i] -1]
+    }
+
+    return result
+}
+
+console.log(smallerNumbersThanCurrent([5,0,10,0,10,6]))

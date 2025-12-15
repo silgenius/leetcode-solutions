@@ -11,19 +11,13 @@
  * @return {number[]}
  */
 var findErrorNums = function(nums) {
-  let loss;
-  let rep;
-  let numCount = {}
-  for (let num of nums) {
-    numCount[num] = numCount[num] ? numCount[num] + 1 : 1;
-    rep = (!rep && numCount[num] >= 2) ? num: rep
-  }
+  let s = nums.reduce((total, num) => total + num, 0)
+  let n = nums.length;
 
-  for (let i = 1; i <= nums.length; i++) {
-    if (!numCount[i]) {
-        loss = i;
-        break;
-    }
-  }
-  return [rep, loss]
+  let s2 = [... new Set(nums)].reduce((total, num) => total + num, 0)
+
+  let dup = s - s2;
+  let loss = Math.floor( n * (n + 1) / 2 ) - s2
+
+  return [dup, loss]
 };

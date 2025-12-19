@@ -17,7 +17,8 @@
  */
 var findDisappearedNumbers = function (nums = []) {
   let result = [];
-  setNums = new Set(nums);
-  for (let x = 1; x < nums.length; x++) if (!setNums.has(x)) result.push(x);
+  let arr = new Array(nums.length).fill(0);
+  for (let num of nums) arr[num - 1]++;
+  for (let i = 0; i < arr.length; i++) if (arr[i] === 0) result.push(i + 1);
   return result;
 };

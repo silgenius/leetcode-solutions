@@ -18,12 +18,15 @@
  */
 
 var buildArray = function (target, n) {
-  const stream = new Array(n).fill(0);
+  let i = 0;
+  let count = 1;
   const result = [];
-  for (let i = 0; i < stream.length; i++) stream[target[i] - 1]++;
-  for (let i = 0; i < target[target.length - 1]; i++) {
-    if (stream[i]) result.push("Push");
-    else result.push("Push", "Pop");
+  while (count <= n && target[0]) {
+    result.push("Push");
+    if (!(target[i] === count)) result.push("Pop");
+    else i++;
+    if (target[target.length - 1] === count) break;
+    count++;
   }
   return result;
 };

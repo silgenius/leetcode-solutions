@@ -5,9 +5,11 @@
  */
 var twoSum = function (nums, target) {
   let i = 0;
-  while (nums[i] && nums[i + 1]) {
-    if (nums[i] + nums[i + 1] === target) return [i, i + 1];
-    i++;
+  let map = {};
+
+  for (let i = 0; i < nums.length; i++) {
+    const rem = target - nums[i];
+    if (typeof map[rem] === "number") return [map[rem], i];
+    map[nums[i]] = i;
   }
-  return [];
 };
